@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>video</title>
+  <style>
+    /* iOSのアドレスバー伸縮やsafe-areaに耐える */
+    :root { color-scheme: dark; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+    }
+
+    /* 画面全体のラッパー */
+    .wrap {
+      position: fixed;
+      inset: 0;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right)
+               env(safe-area-inset-bottom) env(safe-area-inset-left);
+      display: grid;
+      place-items: center;
+      background: #000;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      background: #000;
+      object-fit: contain; /* 余白出して全体表示 */
+      /* object-fit: cover;  ← 画面を埋める（端が切れてOKならこっち） */
+    }
+
+    /* ちょい改善：ダブルタップ拡大とかの挙動を抑える */
+    .wrap, video { touch-action: manipulation; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <video controls playsinline preload="metadata">
+      <source src="LoveBombingSociety.mp4" type="video/mp4" />
+      このブラウザは動画タグに対応していません。
+    </video>
+  </div>
+</body>
+</html>
