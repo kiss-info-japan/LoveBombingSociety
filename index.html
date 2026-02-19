@@ -56,6 +56,14 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
+    .video-counter{
+  margin-top: 18px;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: #777;
+  text-align: center;
+}
+
 
     .brand{
       font-size: 14px;
@@ -109,18 +117,45 @@
 </head>
 
 <body>
-  <main class="wrap">
-<video controls autoplay muted loop playsinline preload="auto">
+<main class="wrap">
+  <video controls autoplay muted loop playsinline preload="auto">
     <source src="LoveBombingSociety.mp4" type="video/mp4" />
   </video>
+
+  <div class="video-counter">
+    You are visitor No. <span id="visitor-count">...</span>
+  </div>
 </main>
 
-  <nav class="bottom-bar" aria-label="Site links">
-    <div class="brand">Love Bombing Society</div>
 
-    <div class="links">
-      <a href="https://kiss-info-japan.github.io/-/index.html" target="_blank" rel="noopener noreferrer">架空委員会宗教宗教</a>
-    </div>
-  </nav>
+<nav class="bottom-bar" aria-label="Site links">
+  <div class="brand">
+    Love Bombing Society  
+    
+  </div>
+
+  <div class="links">
+    <a href="https://kiss-info-japan.github.io/-/index.html" target="_blank" rel="noopener noreferrer">
+      架空委員会宗教宗教
+    </a>
+  </div>
+</nav>
+
+  
 </body>
+<script>
+function updateCounter() {
+  fetch("https://api.countapi.xyz/get/lovebombingsociety/visitors")
+    .then(response => response.json())
+    .then(data => {
+      const number = data.value.toString().padStart(4, "0");
+      document.getElementById("visitor-count").innerText = number;
+    });
+}
+
+updateCounter();
+setInterval(updateCounter, 5000); // 5秒ごと更新
+</script>
+
+
 </html>
