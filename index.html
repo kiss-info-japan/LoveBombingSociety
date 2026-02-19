@@ -122,9 +122,7 @@
     <source src="LoveBombingSociety.mp4" type="video/mp4" />
   </video>
 
-  <div class="video-counter">
-    You are visitor No. <span id="visitor-count">...</span>
-  </div>
+  
 </main>
 
 
@@ -140,33 +138,12 @@
     </a>
   </div>
 </nav>
-
+<script data-goatcounter="https://lovebombingsociety.goatcounter.com/count"
+        async
+        src="https://gc.zgo.at/count.js"></script>
   
 </body>
-<script>
-function render(value){
-  document.getElementById("visitor-count").textContent = String(value).padStart(4, "0");
-}
 
-async function hitAndStartPolling(){
-  try{
-    const hit = await fetch("https://api.countapi.xyz/hit/lovebombingsociety/visitors");
-    render((await hit.json()).value);
-  }catch(e){
-    document.getElementById("visitor-count").textContent = "—";
-    return;
-  }
-
-  setInterval(async () => {
-    try{
-      const r = await fetch("https://api.countapi.xyz/get/lovebombingsociety/visitors");
-      render((await r.json()).value);
-    }catch(e){ /* 無視 */ }
-  }, 5000);
-}
-
-hitAndStartPolling();
-</script>
 
 
 
