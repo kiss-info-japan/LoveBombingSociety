@@ -144,18 +144,30 @@
   
 </body>
 <script>
-function updateCounter() {
-  fetch("https://api.countapi.xyz/get/lovebombingsociety/visitors")
-    .then(response => response.json())
-    .then(data => {
-      const number = data.value.toString().padStart(4, "0");
-      document.getElementById("visitor-count").innerText = number;
-    });
+function render(value){
+  document.getElementById("visitor-count").textContent = String(value).padStart(4, "0");
 }
 
-updateCounter();
-setInterval(updateCounter, 5000); // 5秒ごと更新
+async function hitAndStartPolling(){
+  try{
+    const hit = await fetch("https://api.countapi.xyz/hit/lovebombingsociety/visitors");
+    render((await hit.json()).value);
+  }catch(e){
+    document.getElementById("visitor-count").textContent = "—";
+    return;
+  }
+
+  setInterval(async () => {
+    try{
+      const r = await fetch("https://api.countapi.xyz/get/lovebombingsociety/visitors");
+      render((await r.json()).value);
+    }catch(e){ /* 無視 */ }
+  }, 5000);
+}
+
+hitAndStartPolling();
 </script>
+
 
 
 </html>
