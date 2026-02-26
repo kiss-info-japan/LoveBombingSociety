@@ -4,147 +4,125 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Love Bombing Society</title>
+
   <style>
     :root{
       --bg: #000000;
-      --fg: #111;
-      --muted: #666;
-      --bar: rgba(0, 0, 0, 0.92);
-      --border: rgba(0,0,0,0.10);
+      --bar: rgba(0,0,0,0.94);
+      --border: rgba(255,255,255,0.08);
     }
 
     html, body {
       height: 100%;
       margin: 0;
       background: var(--bg);
-      color: var(--fg);
-      font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN",
-                   "Noto Sans JP", "Yu Gothic", sans-serif;
+      font-family: system-ui, -apple-system, "Segoe UI",
+                   "Hiragino Kaku Gothic ProN", "Noto Sans JP",
+                   "Yu Gothic", sans-serif;
     }
 
-    /* 画面全体：下部バー分の余白を確保 */
     .wrap{
       min-height: 100vh;
-      padding-bottom: calc(56px + env(safe-area-inset-bottom));
+      padding-bottom: calc(64px + env(safe-area-inset-bottom));
       display: grid;
       place-items: center;
     }
 
-    /* 動画：画面に収める（下部バーに被らない） */
     video{
       width: min(1100px, 100vw);
       height: auto;
-      max-height: calc(100vh - 56px - env(safe-area-inset-bottom));
+      max-height: calc(100vh - 64px - env(safe-area-inset-bottom));
       display: block;
-      background: #000000;
+      background: #000;
       outline: none;
     }
 
-    /* 下部バー */
     .bottom-bar{
       position: fixed;
-      left: 0; right: 0; bottom: 0;
-      height: 56px;
-      padding: 0 16px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 64px;
+      padding: 0 32px;
       padding-bottom: env(safe-area-inset-bottom);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
       background: var(--bar);
       border-top: 1px solid var(--border);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
-    .video-counter{
-  margin-top: 18px;
-  font-size: 13px;
-  letter-spacing: 0.2em;
-  color: #777;
-  text-align: center;
-}
 
-
+    /* 主役 */
     .brand{
-      font-size: 14px;
-      letter-spacing: 0.02em;
-      color: var(--muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 55vw;
-    }
-
-    .links{
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      font-size: 22px;
+      letter-spacing: 0.08em;
+      font-weight: 600;
       color: #ffffff;
+      white-space: nowrap;
     }
 
-    a{
-      font-size: 14px;
-      color: var(--fg);
+    /* 従属 */
+    .links a{
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.28);
       text-decoration: none;
-      border-bottom: 1px solid transparent;
-      padding: 6px 2px;
-    }
-    a:hover{
-      border-bottom-color: var(--fg);
-    }
-    a:focus-visible{
-      outline: 2px solid rgba(0,0,0,0.35);
-      outline-offset: 3px;
-      border-bottom-color: transparent;
+      transition: 0.25s ease;
     }
 
-    /* 小さい画面では少し詰める */
-    @media (max-width: 420px){
-      .bottom-bar{ padding: 0 12px; }
-      .brand, a{ font-size: 13px; }
-      .links{ gap: 10px; }
+    .links a:hover{
+      color: rgba(255,255,255,0.65);
     }
 
-    .bottom-bar a{
-  color: #ffffff;
-}
-
-.bottom-bar a:hover{
-  border-bottom-color: #ffffff;
-}
+    @media (max-width: 480px){
+      .brand{
+        font-size: 18px;
+      }
+      .links a{
+        font-size: 10px;
+      }
+    }
   </style>
 </head>
 
 <body>
+
 <main class="wrap">
   <video controls autoplay muted loop playsinline preload="auto">
     <source src="LoveBombingSociety.mp4" type="video/mp4" />
   </video>
-
-  
 </main>
-
 
 <nav class="bottom-bar" aria-label="Site links">
   <div class="brand">
-    Love Bombing Society  
-    
+    Love Bombing Society
   </div>
 
   <div class="links">
-    <a href="https://kiss-info-japan.github.io/-/index.html" target="_blank" rel="noopener noreferrer">
+    <a href="https://kiss-info-japan.github.io/-/index.html"
+       target="_blank"
+       rel="noopener noreferrer">
       架空委員会宗教宗教
     </a>
   </div>
 </nav>
+
 <script data-goatcounter="https://lovebombingsociety.goatcounter.com/count"
         async
         src="https://gc.zgo.at/count.js"></script>
-  
+
+<script>
+document.addEventListener("click", function enterFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(err => {
+      console.log("Fullscreen error:", err);
+    });
+  }
+  document.removeEventListener("click", enterFullscreen);
+});
+</script>
+
 </body>
-
-
-
-
 </html>
